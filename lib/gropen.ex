@@ -1,10 +1,10 @@
 defmodule Gropen do
-  def link_for(path) do
+  def for(path) do
     repo <> branch <> sanitize(path)
   end
 
   def sanitize(path) do
-    path
+    Regex.replace(~r/:(\d+)$/, path, "#L\\1")
   end
 
   def repo do
