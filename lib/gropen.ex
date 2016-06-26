@@ -19,6 +19,10 @@ defmodule Gropen do
   end
 
   def branch do
-    "/master/"
+    branch_name =
+      System.cmd("git",  ["rev-parse", "--abbrev-ref", "HEAD"])
+      |> elem(0)
+      |> String.strip
+    "/" <> branch_name <> "/"
   end
 end
