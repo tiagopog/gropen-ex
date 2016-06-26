@@ -1,6 +1,6 @@
 defmodule Gropen do
   def for(path) do
-    repo <> branch <> sanitize(path)
+    repo <> "/blob/" <> branch <> "/" <> sanitize(path)
   end
 
   def sanitize(path) do
@@ -19,10 +19,8 @@ defmodule Gropen do
   end
 
   def branch do
-    branch_name =
-      System.cmd("git",  ["rev-parse", "--abbrev-ref", "HEAD"])
-      |> elem(0)
-      |> String.strip
-    "/" <> branch_name <> "/"
+    System.cmd("git",  ["rev-parse", "--abbrev-ref", "HEAD"])
+    |> elem(0)
+    |> String.strip
   end
 end
