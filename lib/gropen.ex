@@ -13,7 +13,9 @@ defmodule Gropen do
     end
   end
 
-  def link_for(path), do: "#{repo}/blob/#{branch}/#{sanitize(path)}"
+  def link_for(path) do
+    "#{repo}/blob/#{branch}/#{sanitize(path)}"
+  end
 
   def repo do
     System.cmd("git", ["remote", "-v"])
@@ -35,9 +37,15 @@ defmodule Gropen do
     path && Regex.match?(~r/.+\.\w+(:\d+)?$/, path)
   end
 
-  defp sanitize(path), do: Regex.replace(~r/:(\d+)$/, path, "#L\\1")
+  defp sanitize(path) do
+    Regex.replace(~r/:(\d+)$/, path, "#L\\1")
+  end
 
-  defp extract_repo_url(srt), do: Regex.run(~r/https?:\/\/github\.com\/\w+\/\w+/i, srt)
+  defp extract_repo_url(srt) do
+    Regex.run(~r/https?:\/\/github\.com\/\w+\/\w+/i, srt)
+  end
 
-  defp print_error, do: IO.puts @error_message
+  defp print_error do
+    IO.puts @error_message
+  end
 end
