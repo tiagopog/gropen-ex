@@ -1,4 +1,6 @@
 defmodule Gropen do
+  @error_message "Usage: gropen PATH [OPTIONS]"
+
   def main([]) do
     print_error
   end
@@ -11,9 +13,7 @@ defmodule Gropen do
     end
   end
 
-  def link_for(path) do
-    repo <> "/blob/" <> branch <> "/" <> sanitize(path)
-  end
+  def link_for(path), do: "#{repo}/blob/#{branch}/#{sanitize(path)}"
 
   def repo do
     System.cmd("git", ["remote", "-v"])
@@ -35,15 +35,9 @@ defmodule Gropen do
     path && Regex.match?(~r/.+\.\w+(:\d+)?$/, path)
   end
 
-  defp sanitize(path) do
-    Regex.replace(~r/:(\d+)$/, path, "#L\\1")
-  end
+  defp sanitize(path), do: Regex.replace(~r/:(\d+)$/, path, "#L\\1")
 
-  defp extract_repo_url(srt) do
-    Regex.run(~r/https?:\/\/github\.com\/\w+\/\w+/i, srt)
-  end
+  defp extract_repo_url(srt), do: Regex.run(~r/https?:\/\/github\.com\/\w+\/\w+/i, srt)
 
-  defp print_error do
-    IO.puts "Usage: gropen PATH [OPTIONS]"
-  end
+  defp print_error, do: IO.puts @error_message
 end
