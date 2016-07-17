@@ -1,47 +1,60 @@
 defmodule Gropen do
   @error_message "Usage: gropen PATH [OPTIONS]"
 
-  def main([]) do
-    print_error
-  end
+  def main([]), do: print_error
 
   def main(args) do
-    if correct_path?(args) do
-      hd(args) |> link_for |> IO.puts
+    {options, file, _} =
+      OptionParser.parse(args,
+        switches: [branch: :string, commit: :string, origin: :string]
+      )
+    link_for(hd(file), options)
+  end
+
+  def link_for(file, options \\ []) do
+    if git? do
+      # "#{repo}/blob/#{branch}/#{sanitize(file)}"
+      remote_repo <> "/blob/"
+      |> add_branch(options)
+      |> IO.inspect
     else
       print_error
     end
   end
 
-  def link_for(path) do
-    "#{repo}/blob/#{branch}/#{sanitize(path)}"
-  end
-
-  def repo do
+  def remote_repo do
     System.cmd("git", ["remote", "-v"])
     |> elem(0)
-    |> extract_repo_url
+    |> remote_repo_url
     |> hd
   end
 
-  def branch do
-    System.cmd("git",  ["rev-parse", "--abbrev-ref", "HEAD"])
-    |> elem(0)
-    |> String.strip
+  def add_branch(url, options \\ []) do
+    branch =
+      if options[:branch] do
+        options[:branch]
+      else
+        System.cmd("git",  ["rev-parse", "--abbrev-ref", "HEAD"])
+        |> elem(0)
+        |> String.strip
+      end
+    url <> branch
   end
 
-  defp correct_path?(args) when length(args) == 0, do: false
+  def git? do
+    {result, _} = System.cmd("git",  ["rev-parse", "--is-inside-work-tree"])
+    String.strip(result) == "true"
+  end
 
-  defp correct_path?(args) do
-    path = hd(args)
-    path && Regex.match?(~r/.+\.\w+(:\d+)?$/, path)
+  defp parse_args(args) do
+    file
   end
 
   defp sanitize(path) do
     Regex.replace(~r/:(\d+)$/, path, "#L\\1")
   end
 
-  defp extract_repo_url(srt) do
+  defp remote_repo_url(srt) do
     Regex.run(~r/https?:\/\/github\.com\/\w+\/\w+/i, srt)
   end
 
