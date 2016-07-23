@@ -1,7 +1,10 @@
 defmodule Gropen do
-  @error_message "Usage: gropen PATH [OPTIONS]"
+  @error_message [
+    usage: "Usage: gropen PATH [OPTIONS]",
+    branch: "The given branch does not exist, using default \"master\""
+  ]
 
-  def main([]), do: print_error
+  def main([]), do: print_error(:usage)
 
   def main(args) do
     {options, file, _} =
@@ -16,9 +19,10 @@ defmodule Gropen do
       # "#{repo}/blob/#{branch}/#{sanitize(file)}"
       remote_repo <> "/blob/"
       |> add_branch(options)
+      |> add_file(file)
       |> IO.inspect
     else
-      print_error
+      print_error(:usage)
     end
   end
 
@@ -38,7 +42,7 @@ defmodule Gropen do
         |> elem(0)
         |> String.strip
       end
-    url <> branch
+    url <> branch <> "/"
   end
 
   def git? do
@@ -51,19 +55,24 @@ defmodule Gropen do
   end
 
   defp check_branch(branch) do
-    {result, _} = System.cmd("git", ["rev-parse", "--verify", branch])
-    branch
+    case System.cmd("git", ["rev-parse", "--verify", branch]) do
+      {"", _} ->
+        print_error(:branch)
+        "master"
+      _ ->
+        branch
+    end
   end
 
-  defp sanitize(path) do
-    Regex.replace(~r/:(\d+)$/, path, "#L\\1")
+  defp add_file(url, file) do
+    url <> Regex.replace(~r/:(\d+)$/, file, "#L\\1")
   end
 
   defp remote_repo_url(srt) do
     Regex.run(~r/https?:\/\/github\.com\/\w+\/\w+/i, srt)
   end
 
-  defp print_error do
-    IO.puts @error_message
+  defp print_error(type) do
+    IO.puts @error_message[type]
   end
 end
