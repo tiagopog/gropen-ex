@@ -32,7 +32,7 @@ defmodule Gropen do
   def add_branch(url, options \\ []) do
     branch =
       if options[:branch] do
-        options[:branch]
+        check_branch(options[:branch])
       else
         System.cmd("git",  ["rev-parse", "--abbrev-ref", "HEAD"])
         |> elem(0)
@@ -48,6 +48,11 @@ defmodule Gropen do
 
   defp parse_args(args) do
     file
+  end
+
+  defp check_branch(branch) do
+    {result, _} = System.cmd("git", ["rev-parse", "--verify", branch])
+    branch
   end
 
   defp sanitize(path) do
