@@ -16,13 +16,22 @@ defmodule Gropen do
 
   def link_for(file, options \\ []) do
     if git? do
-      # "#{repo}/blob/#{branch}/#{sanitize(file)}"
       remote_repo <> "/blob/"
       |> add_branch(options)
       |> add_file(file)
-      |> IO.inspect
+      |> open
     else
       print_error(:usage)
+    end
+  end
+
+  def open(url) do
+    if open? do
+      IO.puts("Remote URL: #{url}")
+      IO.puts("Opening...")
+      System.cmd("open", [url])
+    else
+      IO.puts(url)
     end
   end
 
@@ -35,8 +44,8 @@ defmodule Gropen do
 
   def add_branch(url, options \\ []) do
     branch =
-      if options[:branch] do
-        check_branch(options[:branch])
+      if options[:branch] && remote_branch?(options[:branch]) do
+        options[:branch]
       else
         System.cmd("git",  ["rev-parse", "--abbrev-ref", "HEAD"])
         |> elem(0)
@@ -45,23 +54,21 @@ defmodule Gropen do
     url <> branch <> "/"
   end
 
-  def git? do
+  defp git? do
     {result, _} = System.cmd("git",  ["rev-parse", "--is-inside-work-tree"])
     String.strip(result) == "true"
   end
 
-  defp parse_args(args) do
-    file
+  defp open? do
+    {result, _} = System.cmd("which",  ["open"])
+    String.length(result) > 0
   end
 
-  defp check_branch(branch) do
-    case System.cmd("git", ["rev-parse", "--verify", branch]) do
-      {"", _} ->
-        print_error(:branch)
-        "master"
-      _ ->
-        branch
-    end
+  defp remote_branch?(branch) do
+    {result, _} = System.cmd("git", ["ls-remote", "--heads"])
+    result
+    |> String.split("\n")
+    |> Enum.any?(fn(remote) -> remote =~ ~r/heads\/#{branch}$/ end)
   end
 
   defp add_file(url, file) do
