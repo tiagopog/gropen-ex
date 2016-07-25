@@ -1,20 +1,20 @@
-# Gropen
+# gropen
 
-**TODO: Add description**
+`gropen` is a simple command line application that helps you showing code in remote repositories.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+Elixir/Erlang is [required](http://elixir-lang.org/install.html#distributions).
 
-  1. Add gropen to your list of dependencies in `mix.exs`:
+TODO
 
-        def deps do
-          [{:gropen, "~> 0.0.1"}]
-        end
+## Usage
 
-  2. Ensure gropen is started before your application:
+TODO
 
-        def application do
-          [applications: [:gropen]]
-        end
+## TODO
 
+- [ ] Support more git-based remote repos: GitLab, BitBucket;
+- [ ] Add "--link" flag to build the URL and skip opening it on a web browser;
+- [ ] Understand files at their relative paths;
+- [ ] Write a Go version in order to make it more portable.
