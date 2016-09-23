@@ -14,7 +14,8 @@ TODO
 
 ## TODO
 
-- [ ] Support more git-based remote repos: GitLab, BitBucket;
-- [ ] Add "--link" flag to build the URL and skip opening it on a web browser;
+- [ ] Support more git-based source repos: Gitlab, Bitbucket;
+- [ ] Add "--link" flag to build the URL and skip open it on a web browser;
+- [ ] Generate URLs for commit revisions;
 - [ ] Understand files at their relative paths;
 - [ ] Write a Go version in order to make it more portable.

@@ -11,15 +11,14 @@ defmodule Git do
     |> hd
   end
 
+  def remote_branch?(nil), do: false
   def remote_branch?(branch) do
-    if branch do
-      case System.cmd("git", ["ls-remote", "--heads"]) do
-        {result, _} ->
-          result
-          |> String.split("\n")
-          |> Enum.any?(fn(remote) -> remote =~ ~r/heads\/#{branch}$/ end)
-        _ -> false
-      end
+    case System.cmd("git", ["ls-remote", "--heads"]) do
+      {result, _} ->
+        result
+        |> String.split("\n")
+        |> Enum.any?(fn(remote) -> remote =~ ~r/heads\/#{branch}$/ end)
+      _ -> false
     end
   end
 
