@@ -10,6 +10,19 @@ TODO
 
 ## Usage
 
+
+On iex:
+
+```elixir
+Gropen.main(["mix.exs:2", "--branch", "bar"])
+```
+
+On terminal:
+
+```shell
+$ gropen mix.exs:2 --branch bar
+```
+
 TODO
 
 ## TODO
