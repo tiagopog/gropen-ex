@@ -28,7 +28,7 @@ defmodule Gropen do
   def process(:help), do: print_error(:usage)
   def process({options, file}) do
     with true       <- Git.present?,
-         {:ok, url} <- build_url(file),
+         {:ok, url} <- build_url,
          {:ok, url} <- add_branch(url, options),
          {:ok, url} <- add_file(url, file),
          do: url
@@ -60,7 +60,7 @@ defmodule Gropen do
     {:ok, url <> Regex.replace(~r/:(\d+)$/, file, "#L\\1")}
   end
 
-  defp build_url(str) do
+  defp build_url do
     {:ok, Git.remote_repo <> "/blob/"}
   end
 
