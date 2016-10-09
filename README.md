@@ -22,7 +22,7 @@ That's it!
 **On terminal:**
 
 ```
-$ gropen mix.exs:2 --branch bar
+$ gropen mix.exs:2
 ```
 
 It will then open the following URL on your browser:
