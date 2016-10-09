@@ -1,0 +1,12 @@
+#!/bin/bash
+curl -OL -s https://github.com/tiagopog/gropen/releases/download/v0.1.0/gropen.zip
+file="gropen.zip"
+if [ -f "$file" ]
+then
+  unzip -q gropen.zip
+  mv gropen /usr/local/bin/gropen
+  rm gropen.zip
+  echo "Gropen is ready to use: gropen file_path[:line_number] [-b branch_name]"
+else
+  echo "Oops! Gropen's installation has failed :-("
+fi
