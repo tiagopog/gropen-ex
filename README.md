@@ -19,20 +19,31 @@ That's it!
 
 ## Usage
 
+**On terminal:**
 
-On iex:
+```
+$ gropen mix.exs:2 --branch bar
+```
+
+It will then open the following URL on your browser:
+
+`https://github.com/tiagopog/gropen/blob/master/mix.exs#L2`
+
+**On iex:**
+
+Add gropen to your `mix.exs` dependencies:
+
+```elixir
+def deps do
+  [{:gropen, "~> 0.1.0"}]
+end
+```
+
+And then call `Gropen.main/1`
 
 ```elixir
 Gropen.main(["mix.exs:2", "--branch", "bar"])
 ```
-
-On terminal:
-
-```shell
-$ gropen mix.exs:2 --branch bar
-```
-
-It will then open the following URL on your browser: https://github.com/tiagopog/gropen/blob/master/mix.exs#L2
 
 ## TODO
 
