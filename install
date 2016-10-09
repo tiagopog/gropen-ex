@@ -1,5 +1,5 @@
 #!/bin/bash
-curl -OL -s https://github.com/tiagopog/gropen/releases/download/v0.1.0/gropen.zip
+curl -sOL https://github.com/tiagopog/gropen/releases/download/v0.1.0/gropen.zip
 file="gropen.zip"
 if [ -f "$file" ]
 then
