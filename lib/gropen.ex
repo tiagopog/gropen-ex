@@ -31,20 +31,18 @@ defmodule Gropen do
          {:ok, url} <- build_url,
          {:ok, url} <- add_branch(url, options),
          {:ok, url} <- add_file(url, file),
-         do: url
+         do: {:ok, url, options}
   end
 
-  def open(url) when is_nil(url), do: print_error(:url)
-  def open(url) do
-    case System.cmd("which",  ["open"]) do
-      {result, _} when byte_size(result) > 0 ->
-        IO.puts("Open: #{url}")
-        System.cmd("open", [url])
-        {:ok}
-      _ ->
-        IO.puts(url)
-        {:error, :no_open_cli_found}
-    end
+  def open({:ok, url, options}) do
+    if open?(options), do: System.cmd("open", [url])
+    IO.puts(url)
+  end
+
+  defp open?(options) do
+    with true       <- is_nil(options[:link]),
+        {result, _} <- System.cmd("which",  ["open"]),
+        do: byte_size(result) > 0
   end
 
   defp add_branch(url, options) do
@@ -52,7 +50,6 @@ defmodule Gropen do
       Git.remote_branch?(options[:branch]) -> options[:branch]
       :else                                -> Git.current_branch
     end
-
     {:ok, url <> branch <> "/"}
   end
 
