@@ -46,10 +46,7 @@ defmodule Gropen do
   end
 
   defp add_branch(url, options) do
-    branch = cond do
-      Git.remote_branch?(options[:branch]) -> options[:branch]
-      :else                                -> Git.current_branch
-    end
+    branch = options[:branch] || Git.current_branch
     {:ok, url <> branch <> "/"}
   end
 
