@@ -51,7 +51,14 @@ defmodule Gropen do
   end
 
   defp add_file(url, file) do
-    {:ok, url <> Regex.replace(~r/:(\d+)$/, file, "#L\\1")}
+    file = Regex.replace(~r/:(\d+)$/, file, "#L\\1")
+    {:ok, url <> path <> file }
+  end
+
+  defp path do
+    current_path = Path.expand(".")
+    base_path    = Git.root
+    if current_path == base_path, do: "", else: Path.relative_to(current_path, base_path) <> "/"
   end
 
   defp build_url do

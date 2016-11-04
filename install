@@ -6,7 +6,7 @@ then
   unzip -q gropen.zip
   mv gropen /usr/local/bin/gropen
   rm gropen.zip
-  echo "Gropen is ready to use: gropen file_path[:line_number] [-b branch_name]"
+  echo "Gropen is ready to use: gropen file_path[:line_number] [--branch branch_name] [--link]"
 else
   echo "Oops! Gropen's installation has failed :-("
 fi

@@ -1,4 +1,10 @@
 defmodule Git do
+  def root do
+    System.cmd("git", ["rev-parse", "--show-toplevel"])
+    |> elem(0)
+    |> String.strip
+  end
+
   def present? do
     {result, _} = System.cmd("git",  ["rev-parse", "--is-inside-work-tree"])
     String.strip(result) == "true"
