@@ -19,7 +19,7 @@ That's it!
 
 ## Usage
 
-**On terminal:**
+### On terminal
 
 ```
 $ gropen mix.exs:2
@@ -30,14 +30,14 @@ It will then open the following URL on your browser:
 `https://github.com/tiagopog/gropen/blob/master/mix.exs#L2`
 
 
-Optionals:
+**Options:**
 
-- `--branch branch_name`: use other branch other than the current one;
-- `--link`: skip open the generated URL on the browser.
+- `--branch branch_name`: use a branch other than the current one;
+- `--link`: skip opening the generated URL on the browser.
 
-**On iex:**
+### On iex
 
-Add gropen to your `mix.exs` dependencies:
+Add `gropen` to your `mix.exs` dependencies:
 
 ```elixir
 def deps do
