@@ -29,26 +29,32 @@ It will then open the following URL on your browser:
 
 `https://github.com/tiagopog/gropen/blob/master/mix.exs#L2`
 
+
+Optionals:
+
+- `--branch branch_name`: use other branch other than the current one;
+- `--link`: skip open the generated URL on the browser.
+
 **On iex:**
 
 Add gropen to your `mix.exs` dependencies:
 
 ```elixir
 def deps do
-  [{:gropen, "~> 0.1.0"}]
+  [{:gropen, "~> 0.1.1"}]
 end
 ```
 
 And then call `Gropen.main/1`
 
 ```elixir
-Gropen.main(["mix.exs:2", "--branch", "bar"])
+Gropen.main(["mix.exs:2", "--branch", "foobar", "--link"])
 ```
 
 ## TODO
 
-- [ ] Support more git-based source repos: Gitlab, Bitbucket;
-- [ ] Add "--link" flag to build the URL and skip open it on a web browser;
+- [ ] Add support to more git-based source repos: Gitlab, Bitbucket;
+- [x] Add "--link" flag to build the URL and skip open it on a web browser;
 - [ ] Copy the resulting URL to the clipboard;
 - [ ] Generate URLs based on commits;
-- [ ] Understand relative paths.
+- [x] Understand relative paths.
