@@ -7,7 +7,13 @@
 
 ## Installation
 
-1\. Elixir is [required](http://elixir-lang.org/install.html#distributions).
+### Usual
+
+1\. Erlang is required:
+
+```
+$ brew install erlang
+```
 
 2\. Run the installation script:
 
@@ -16,6 +22,28 @@ curl -sL https://raw.githubusercontent.com/tiagopog/gropen/master/install | sh
 ```
 
 That's it!
+
+### Docker
+
+
+1. Pull the image:
+
+```
+$ docker pull tiagopog/gropen
+```
+
+2. Now it's all about to run the container:
+
+```
+$ docker run gropen my_awesome_module.exs:2 --link
+```
+
+3. You can also alias the `docker run` in order to easily run the `gropen` executable:
+
+```
+$ echo 'alias gropen="docker run gropen"' >> ~/.zshrc
+$ source ~/.zshrc
+```
 
 ## Usage
 
