@@ -26,19 +26,19 @@ That's it!
 ### Docker
 
 
-1. Pull the image:
+1\. Pull the image:
 
 ```
 $ docker pull tiagopog/gropen
 ```
 
-2. Now it's all about to run the container:
+2\. Now it's all about to run the container:
 
 ```
 $ docker run gropen my_awesome_module.exs:2 --link
 ```
 
-3. You can also alias the `docker run` in order to easily run the `gropen` executable:
+3\. You can also alias the `docker run` in order to easily run the `gropen` executable:
 
 ```
 $ echo 'alias gropen="docker run gropen"' >> ~/.zshrc
@@ -73,10 +73,10 @@ def deps do
 end
 ```
 
-And then call `Gropen.main/1`
+And then call `Gropen.CLI.main/1`
 
 ```elixir
-Gropen.main(["mix.exs:2", "--branch", "foobar", "--link"])
+Gropen.CLI.main(["mix.exs:2", "--branch", "foobar", "--link"])
 ```
 
 ## TODO
