@@ -1,6 +1,9 @@
 defmodule Gropen do
+  alias Gropen.{CLI, Git}
+
   def process(:help), do: CLI.print_error(:usage)
-  def process({options, file}) do
+  def process(file) when is_binary(file), do: process({file, []})
+  def process({file, options}) do
     with true       <- Git.present?,
          {:ok, url} <- build_url,
          {:ok, url} <- add_branch(url, options),

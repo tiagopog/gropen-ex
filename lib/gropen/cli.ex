@@ -22,12 +22,12 @@ defmodule Gropen.CLI do
 
     case options do
       {[help: true], _, _}   -> :help
-      {options, [file|_], _} -> {options, file}
+      {options, [file|_], _} -> {file, options}
       _ -> :help
     end
   end
 
-  defp print_error(type) do
+  def print_error(type) do
     IO.puts @error_message[type]
   end
 end

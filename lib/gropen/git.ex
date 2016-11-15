@@ -1,4 +1,4 @@
-defmodule Git do
+defmodule Gropen.Git do
   def root do
     System.cmd("git", ["rev-parse", "--show-toplevel"])
     |> elem(0)

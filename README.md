@@ -77,7 +77,13 @@ def deps do
 end
 ```
 
-And then call `Gropen.CLI.main/1`
+And then call:
+
+```elixir
+Gropen.process({"mix.exs:2", [branch: "foobar", link: true]})
+```
+
+or
 
 ```elixir
 Gropen.CLI.main(["mix.exs:2", "--branch", "foobar", "--link"])
