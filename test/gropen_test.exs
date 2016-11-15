@@ -1,5 +1,5 @@
 defmodule GropenTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest Gropen
 
   test "generate URL without options (binary)" do
