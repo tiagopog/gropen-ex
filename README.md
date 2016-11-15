@@ -60,10 +60,12 @@ It will then open the following URL on your browser:
 
 **Options:**
 
-- (--branch|-b) branch_name: use another branch rather than the current one;
-  - e.g.: `gropen mix.ex:10 -b feature/awesome-branch`
-- (--link|-l): skip opening the URL on the browser.
-  - e.g.: `gropen mix.ex:10 -l`
+- *(--branch|-b) branch_name*:
+  - Use another branch rather than the current one;
+  - e.g. `gropen mix.ex:10 -b feature/awesome-branch`
+- *(--link|-l)*:
+  - Skip opening the URL on the browser;
+  - e.g. `gropen mix.ex:10 -l`
 
 ### On iex
 
@@ -83,8 +85,9 @@ Gropen.CLI.main(["mix.exs:2", "--branch", "foobar", "--link"])
 
 ## TODO
 
-- [ ] Add support to more git-based source repos: Gitlab, Bitbucket;
-- [x] Add "--link" flag to build the URL and skip open it on a web browser;
+- [ ] Add support to other remote source repos: Gitlab, Bitbucket;
+- [x] Add "--link" option to skip openning URLs on the browser;
 - [ ] Copy the resulting URL to the clipboard;
-- [ ] Generate URLs based on commits;
-- [x] Understand relative paths.
+- [ ] Generate URLs for commit hash;
+- [x] Add support to relative paths;
+- [ ] Create plugins for Vim, Sublime Text and Atom.
