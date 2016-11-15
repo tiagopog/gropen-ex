@@ -60,8 +60,10 @@ It will then open the following URL on your browser:
 
 **Options:**
 
-- `--branch branch_name`: use a branch other than the current one;
-- `--link`: skip opening the generated URL on the browser.
+- (--branch|-b) branch_name: use another branch rather than the current one;
+  - e.g.: `gropen mix.ex:10 -b feature/awesome-branch`
+- (--link|-l): skip opening the URL on the browser.
+  - e.g.: `gropen mix.ex:10 -l`
 
 ### On iex
 

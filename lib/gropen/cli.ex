@@ -16,7 +16,8 @@ defmodule Gropen.CLI do
 
   def parse_args(args) do
     options = OptionParser.parse(args,
-      switches: [branch: :string, commit: :string, remote: :string]
+      switches: [branch: :string, commit: :string, remote: :string],
+      aliases: [b: :branch, l: :link]
     )
 
     case options do
