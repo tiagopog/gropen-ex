@@ -3,7 +3,7 @@
 `gropen` is a simple command line application that helps you showing code in remote repositories.
 
 > Although this version in Elixir was made for study purposes, it's totally ready to use.
-  Someday I might come back with a more portable version written in either Ruby, Go or shell script.
+  Someday I might come back with a more portable version written in either Crystal, Go or shell script.
 
 ## Installation
 
